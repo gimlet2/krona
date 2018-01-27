@@ -91,7 +91,7 @@ func main() {
 		for f := range functions.Items {
 			function := functions.Items[f]
 			if function.Spec.Type == "Scheduled" {
-				url := "http://" + *function.Metadata.Name + "." + *function.Metadata.Namespace + strconv.Itoa(function.Spec.Service.Ports[0].Port)
+				url := "http://" + *function.Metadata.Name + "." + *function.Metadata.Namespace + ":" + strconv.Itoa(function.Spec.Service.Ports[0].Port)
 				if strings.HasPrefix(function.Spec.Schedule, "cron") {
 					pattern := function.Spec.Schedule[5:len(function.Spec.Schedule)-1]
 					if crons[*function.Metadata.Name] != nil && crons[*function.Metadata.Name].Pattern != pattern {

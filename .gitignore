@@ -1,0 +1,5 @@
+goenv/
+vendor/
+bin
+main
+krona
