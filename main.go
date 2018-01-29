@@ -102,7 +102,7 @@ func main() {
 						log.Printf("Function '%s' with schedule '%s' was descovered", *function.Metadata.Name, pattern)
 						c := cron.New()
 						c.AddFunc(pattern, func() {
-							log.Printf("GET - %s", url)
+							log.Printf("Trigger '%s' function - GET - %s", *function.Metadata.Name, url)
 							http.Get(url)
 						})
 						crons[*function.Metadata.Name] = &CronJob{pattern, c}
