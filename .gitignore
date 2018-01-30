@@ -3,3 +3,5 @@ vendor/
 bin
 main
 krona
+.idea/
+*.iml
