@@ -83,8 +83,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	k8s.Register("k8s.io", "v1", "functions", true, &FunctionResource{})
-	k8s.RegisterList("k8s.io", "v1", "functions", true, &FunctionResourceList{})
+	k8s.Register("kubeless.io", "v1", "function", true, &FunctionResource{})
+	k8s.RegisterList("kubeless.io", "v1", "functions", true, &FunctionResourceList{})
 	var functions FunctionResourceList
 	for {
 		err = client.List(context.Background(), k8s.AllNamespaces, &functions)
