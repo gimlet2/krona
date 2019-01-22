@@ -1,3 +1,3 @@
 FROM scratch
-COPY main /krona
+COPY krona /krona
 ENTRYPOINT ["/krona"]
