@@ -7,12 +7,9 @@ import (
 )
 
 func main() {
-	var cron = NewCron()
 	log.Print("Start")
-	// kubeConfigPath := "/home/user/.kube/config"
-	kubeConfigPath := os.Getenv("KUBE_CONFIG") //"/home/user/.kube/config"
-	client := NewClient(kubeConfigPath)
-	RegisterResources()
+	client := NewClient(os.Getenv("KUBE_CONFIG"))
+	cron := NewCron()
 
 	for {
 		cronTriggers := client.GetCronTriggers()

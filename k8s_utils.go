@@ -33,6 +33,7 @@ func NewClient(kubeConfigPath string) Client {
 	if err != nil {
 		log.Fatal(err)
 	}
+	registerResources()
 	return &ClientImpl{client}
 }
 
@@ -72,7 +73,7 @@ func (c ClientImpl) GetFunction(namespace string, name string) (FunctionResource
 }
 
 // RegisterResources registers custom resources
-func RegisterResources() {
+func registerResources() {
 	k8s.Register("kubeless.io", "v1beta1", "functions", true, &FunctionResource{})
 	k8s.Register("kubeless.io", "v1beta1", "cronjobtriggers", true, &CronJobTriggerResource{})
 	k8s.RegisterList("kubeless.io", "v1beta1", "functions", true, &FunctionResourceList{})
