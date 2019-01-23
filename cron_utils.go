@@ -17,20 +17,18 @@ type Cron interface {
 }
 
 // CronImpl default implemetation of Cron interface
-type CronImpl struct {
-	crons map[string]*CronJob
-}
+type CronImpl map[string]*CronJob
 
 // NewCron constructor of Cron
 func NewCron() Cron {
-	c := CronImpl{map[string]*CronJob{}}
+	c := CronImpl{}
 	return &c
 }
 
 // Cancel cancels job by name
 func (c CronImpl) Cancel(name string) {
-	c.crons[name].Cron.Stop()
-	delete(c.crons, name)
+	c[name].Cron.Stop()
+	delete(c, name)
 }
 
 // Schedule schedules job for triggering
@@ -41,13 +39,13 @@ func (c CronImpl) Schedule(name string, url string, pattern string) {
 		log.Printf("Trigger '%s' function - GET - %s", name, url)
 		http.Get(url)
 	})
-	c.crons[name] = &CronJob{pattern, cron}
+	c[name] = &CronJob{pattern, cron}
 	cron.Start()
 }
 
 // Cleanup cancels outdated jobs
 func (c CronImpl) Cleanup(names Set) {
-	for k := range c.crons {
+	for k := range c {
 		if names.Has(k) {
 			c.Cancel(k)
 		}
@@ -56,10 +54,10 @@ func (c CronImpl) Cleanup(names Set) {
 
 // NeedsUpdate checks was jobs pattern changed or not
 func (c CronImpl) NeedsUpdate(name string, pattern string) bool {
-	return c.crons[name] != nil && c.crons[name].Pattern != pattern
+	return c[name] != nil && c[name].Pattern != pattern
 }
 
 // Has check that job exists
 func (c CronImpl) Has(name string) bool {
-	return c.crons[name] != nil
+	return c[name] != nil
 }
