@@ -5,3 +5,4 @@ This project targets very specific setup: Kubernetes 1.6 with Kubeless and Sched
 `CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o krona .`
 ### then:
 `docker build .`
+
